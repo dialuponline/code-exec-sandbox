@@ -1,0 +1,18 @@
+name: Build And Push Universal
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types: [published]
+
+jobs:
+  build-amd64:
+    uses: ./.github/workflows/build.yml
+    with:
+      runner: ubuntu-latest
+      arch: amd64
+      arch_label: AMD64
+    secrets:
+      DOCKERHUB_USER: ${{ secrets.DOCKERHUB_US
