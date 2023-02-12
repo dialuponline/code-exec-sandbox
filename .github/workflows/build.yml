@@ -1,0 +1,13 @@
+name: Universal Build
+
+on:
+  workflow_call:
+    inputs:
+      runner:
+        required: true
+        type: string
+      arch:
+        required: true
+        type: string
+      arch_label:
+       

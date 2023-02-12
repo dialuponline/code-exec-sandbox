@@ -61,4 +61,7 @@ jobs:
 
       - name: Push Universal Docker Image
         run: 
-          for tag in $(echo "${{ steps.meta.ou
+          for tag in $(echo "${{ steps.meta.outputs.tags }}" | tr ',' '\n');
+          do
+            docker manifest push $tag;
+          done
