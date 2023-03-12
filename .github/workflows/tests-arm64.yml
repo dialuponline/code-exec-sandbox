@@ -2,4 +2,23 @@ name: Run GoTest
 
 on:
   pull_request:
-    bran
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: test-arm64-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test ARM64
+    runs-on: arm64_runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: 
