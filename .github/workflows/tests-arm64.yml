@@ -44,4 +44,12 @@ jobs:
         run: sudo apt-get install -y python3.10 python3-pip
 
       - name: Install Python dependencies
-        run: pip
+        run: pip install httpx requests jinja2
+
+      - name: Link Go
+        run: sudo ln -s "$(which go)" /usr/local/bin/go
+
+      - name: Run Intgeration tests
+        run: sudo go test -timeout 120s -v ./tests/integration_tests/...
+        env:
+          PYTHON_PATH: /usr/bin/python3.10
