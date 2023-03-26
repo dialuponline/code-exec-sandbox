@@ -6,4 +6,8 @@ This occurs because the `dify-sandbox` implementation generates a temporary file
 
 - Root: `/var/sandbox/sandbox-python/` is the root directory from the Python process perspective. Its subdirectories depend on the `python_lib_path` configuration in your `config.yaml`. Usually, it includes:
   - `etc/` directory
-  - `python.so` shared object, compiled and built by
+  - `python.so` shared object, compiled and built by `dify-sandbox`
+  - `usr/lib` directory
+  - `usr/local/`
+
+If you haven't configured `python_lib_path`, `dify-sandbox` will default to the following settings (see code [internal/static/config_default_amd64.go](https://github.com/langgenius/dify-sandbox/blob/main/internal/static/conf
