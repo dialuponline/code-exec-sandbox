@@ -10,4 +10,8 @@ This occurs because the `dify-sandbox` implementation generates a temporary file
   - `usr/lib` directory
   - `usr/local/`
 
-If you haven't configured `python_lib_path`, `dify-sandbox` will default to the following settings (see code [internal/static/config_default_amd64.go](https://github.com/langgenius/dify-sandbox/blob/main/internal/static/conf
+If you haven't configured `python_lib_path`, `dify-sandbox` will default to the following settings (see code [internal/static/config_default_amd64.go](https://github.com/langgenius/dify-sandbox/blob/main/internal/static/config_default_amd64.go); for ARM systems, see `config_default_arm64.go`):
+
+```go
+var DEFAULT_PYTHON_LIB_REQUIREMENTS = []string{
+    "/usr/local/lib/python3.10", // Usually your Python installation directory; if using conda, modify this to the conda virtual environment root directory, e.g., /root/a
