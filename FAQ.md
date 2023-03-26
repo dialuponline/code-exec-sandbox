@@ -18,4 +18,14 @@ var DEFAULT_PYTHON_LIB_REQUIREMENTS = []string{
     "/usr/lib/python3.10",
     "/usr/lib/python3",
     "/usr/lib/x86_64-linux-gnu/libssl.so.3", // Your Python code's shared object dependency; it will be copied to /var/sandbox/sandbox-python/usr/lib/x86_64-linux-gnu/, and your Python process will load it from /usr/lib/x86_64-linux-gnu/
-    "/usr/lib/x86_64-linux-gnu/libcry
+    "/usr/lib/x86_64-linux-gnu/libcrypto.so.3", // Similar to above
+    "/etc/ssl/certs/ca-certificates.crt",
+    "/etc/nsswitch.conf",
+    "/etc/hosts",
+    "/etc/resolv.conf",
+    "/run/systemd/resolve/stub-resolv.conf",
+    "/run/resolvconf/resolv.conf",
+}
+```
+
+So, when encountering such errors, you need to m
