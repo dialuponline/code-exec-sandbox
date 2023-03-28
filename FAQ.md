@@ -28,4 +28,11 @@ var DEFAULT_PYTHON_LIB_REQUIREMENTS = []string{
 }
 ```
 
-So, when encountering such errors, you need to m
+So, when encountering such errors, you need to modify the `python_lib_path` in your `config.yaml` to include the shared object paths required by your Python code. For example:
+```config.yaml
+python_path: /usr/local/bin/python3
+python_lib_path:
+  - /usr/local/lib/python3.10
+  - /usr/lib/python3.10
+  - /usr/lib/python3
+  - /usr/lib/x86_64-linux-gnu/li
