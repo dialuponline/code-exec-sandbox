@@ -35,4 +35,15 @@ python_lib_path:
   - /usr/local/lib/python3.10
   - /usr/lib/python3.10
   - /usr/lib/python3
-  - /usr/lib/x86_64-linux-gnu/li
+  - /usr/lib/x86_64-linux-gnu/libssl.so.3
+  - /usr/lib/x86_64-linux-gnu/libcrypto.so.3
+  - /etc/ssl/certs/ca-certificates.crt
+  - /etc/nsswitch.conf
+  - /etc/hosts
+  - /etc/resolv.conf
+  - /run/systemd/resolve/stub-resolv.conf
+  - /run/resolvconf/resolv.conf
+  - *** add path which you required here ***
+```
+
+**Note:*
