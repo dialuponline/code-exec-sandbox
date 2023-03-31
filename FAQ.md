@@ -46,4 +46,6 @@ python_lib_path:
   - *** add path which you required here ***
 ```
 
-**Note:*
+**Note:** The Go process initializes this environment at startup, so if you configure too many `python_lib_path`, the startup will be very slow. For serverless environments, consider modifying the code to complete this build in a Docker container.
+
+### 2. My Python code returns an "operation not permitted" error?
