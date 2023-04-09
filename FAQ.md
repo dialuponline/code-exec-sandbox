@@ -62,4 +62,8 @@ To quickly identify the system calls your Python code depends on, here is the re
 failed with signal: bad system call
 ...
 failed with signal: bad system call
-Following syscalls are required: 0,1,3,5,8,9,10,11,12,13,14,15,16,17,24,28,35,39,60,63,105,106,131,186,202,204,217,231,233,234,237,257,262,273,2
+Following syscalls are required: 0,1,3,5,8,9,10,11,12,13,14,15,16,17,24,28,35,39,60,63,105,106,131,186,202,204,217,231,233,234,237,257,262,273,281,291,318,334,435
+```
+If you haven't got output like this format, maybe it's your permission problem, try run it with `sudo` again.
+
+3. These syscalls is the sandbox already added: `0,1,3,8,9,10,11,12,13,14,15,16,16,24,25,35,39,60,96,102,105,106,110,131,186,201,202,217,228,230,231,233,234,257,262,27
