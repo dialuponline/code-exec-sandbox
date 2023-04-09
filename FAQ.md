@@ -56,4 +56,10 @@ To quickly identify the system calls your Python code depends on, here is the re
 
 1. Modify the `/cmd/test/syscall_dig/test.py`, add your own code besides or in the `main` function. For example, you can add `import numpy` before `main`.
 
-2. Run `go run cmd/
+2. Run `go run cmd/test/syscall_dig/main.go`, the output will like this:
+```shell
+~/dify-sandbox$ go run cmd/test/syscall_dig/main.go
+failed with signal: bad system call
+...
+failed with signal: bad system call
+Following syscalls are required: 0,1,3,5,8,9,10,11,12,13,14,15,16,17,24,28,35,39,60,63,105,106,131,186,202,204,217,231,233,234,237,257,262,273,2
