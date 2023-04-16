@@ -73,4 +73,15 @@ If you haven't got output like this format, maybe it's your permission problem, 
 var ALLOW_SYSCALLS = []int{
 	// file io
 	syscall.SYS_NEWFSTATAT, syscall.SYS_IOCTL, syscall.SYS_LSEEK, syscall.SYS_GETDENTS64,
-	syscall.SYS_WRITE, syscall.SYS_CLOSE, syscall.SYS_OPENAT, syscall.
+	syscall.SYS_WRITE, syscall.SYS_CLOSE, syscall.SYS_OPENAT, syscall.SYS_READ,
+    
+	...
+
+	// run numpy required
+	syscall.SYS_FSTAT, syscall.SYS_PREAD64, syscall.SYS_MADVISE, syscall.SYS_UNAME,
+	syscall.SYS_SCHED_GETAFFINITY, syscall.SYS_MBIND, syscall.SYS_EPOLL_PWAIT, 435,
+}
+```
+If the syscall alias not defined in golang, you can direcly use the number instead.
+
+5. B
