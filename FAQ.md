@@ -84,4 +84,4 @@ var ALLOW_SYSCALLS = []int{
 ```
 If the syscall alias not defined in golang, you can direcly use the number instead.
 
-5. B
+5. Build and Run the whole project again.
