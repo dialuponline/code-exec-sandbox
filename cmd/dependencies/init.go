@@ -11,4 +11,8 @@ func main() {
 
 	err := python.PreparePythonDependenciesEnv()
 	if err != nil {
-		lo
+		log.Panic("failed to initialize python dependencies sandbox: %v", err)
+	}
+
+	log.Info("Python dependencies initialized successfully")
+}
