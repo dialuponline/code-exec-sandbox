@@ -22,4 +22,19 @@ func run(allowed_syscalls []int) {
 	for _, syscall := range allowed_syscalls {
 		nums = append(nums, strconv.Itoa(syscall))
 	}
-	os.Setenv("ALLOWED_SYSCALLS", strings.J
+	os.Setenv("ALLOWED_SYSCALLS", strings.Join(nums, ","))
+	_, err := exec.Command("node", "test.js", "65537", "1001", "{\"enable_network\":true}").Output()
+	if err == nil {
+		fmt.Println("success")
+	} else {
+		fmt.Println("failed")
+	}
+}
+
+func find_syscall(syscall int, syscalls []int) int {
+	for i, s := range syscalls {
+		if s == syscall {
+			return i
+		}
+	}
+	re
