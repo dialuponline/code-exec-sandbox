@@ -37,4 +37,14 @@ func find_syscall(syscall int, syscalls []int) int {
 			return i
 		}
 	}
-	re
+	return -1
+}
+
+func main() {
+	original := nodejs_syscall.ALLOW_SYSCALLS
+	original = append(original, nodejs_syscall.ALLOW_NETWORK_SYSCALLS...)
+	original = append(original, nodejs_syscall.ALLOW_ERROR_SYSCALLS...)
+
+	// generate task list
+	list := make([][]int, SYSCALL_NUMS)
+	for i := 0; i < SYSCALL_NUMS; i++ 
