@@ -47,4 +47,20 @@ func main() {
 
 	// generate task list
 	list := make([][]int, SYSCALL_NUMS)
-	for i := 0; i < SYSCALL_NUMS; i++ 
+	for i := 0; i < SYSCALL_NUMS; i++ {
+		list[i] = make([]int, len(original))
+		copy(list[i], original)
+		// add i
+		if find_syscall(i, original) == -1 {
+			list[i] = append(list[i], i)
+		}
+
+		for j := 0; j < 0; j++ {
+			if find_syscall(j, list[i]) == -1 {
+				list[i] = append(list[i], j)
+			}
+		}
+	}
+
+	lock := sync.Mutex{}
+	wg := syn
