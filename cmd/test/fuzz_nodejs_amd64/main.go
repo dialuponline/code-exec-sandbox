@@ -1,3 +1,4 @@
+
 package main
 
 import (
@@ -12,11 +13,11 @@ import (
 )
 
 const (
-	SYSCALL_NUMS = 400
+	SYSCALL_NUMS = 1000
 )
 
 func run(allowed_syscalls []int) {
-	os.Chdir("/tmp/sandbox-f5faacb9-f441-43ec-a077-a09a8b7cc7f0/var/sandbox/sandbox-nodejs/nodejs-project/node_temp/node_temp")
+	os.Chdir("/tmp/sandbox-2c8a41ec-04ae-4209-8ed7-17bd476803a6/tmp/sandbox-nodejs-project/node_temp/node_temp")
 
 	nums := []string{}
 	for _, syscall := range allowed_syscalls {
@@ -25,9 +26,8 @@ func run(allowed_syscalls []int) {
 	os.Setenv("ALLOWED_SYSCALLS", strings.Join(nums, ","))
 	_, err := exec.Command("node", "test.js", "65537", "1001", "{\"enable_network\":true}").Output()
 	if err == nil {
-		fmt.Println("success")
 	} else {
-		fmt.Println("failed")
+		fmt.Println(err.Error())
 	}
 }
 
@@ -55,11 +55,53 @@ func main() {
 			list[i] = append(list[i], i)
 		}
 
-		for j := 0; j < 0; j++ {
-			if find_syscall(j, list[i]) == -1 {
-				list[i] = append(list[i], j)
-			}
-		}
+		// for j := 15; j < 16; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 24; j < 25; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 60; j < 61; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 186; j < 187; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 204; j < 205; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 273; j < 274; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 334; j < 335; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 435; j < 436; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
 	}
 
 	lock := sync.Mutex{}
@@ -67,7 +109,7 @@ func main() {
 	i := 0
 
 	// run 4 tasks concurrently
-	for j := 0; j < 4; j++ {
+	for j := 0; j < 10; j++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
