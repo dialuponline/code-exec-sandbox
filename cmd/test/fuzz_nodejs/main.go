@@ -63,4 +63,27 @@ func main() {
 	}
 
 	lock := sync.Mutex{}
-	wg := syn
+	wg := sync.WaitGroup{}
+	i := 0
+
+	// run 4 tasks concurrently
+	for j := 0; j < 4; j++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for {
+				lock.Lock()
+				if i >= len(list) {
+					lock.Unlock()
+					return
+				}
+				task := list[i]
+				i++
+				lock.Unlock()
+				run(task)
+			}
+		}()
+	}
+
+	// wait for all tasks to finish
+	wg.
