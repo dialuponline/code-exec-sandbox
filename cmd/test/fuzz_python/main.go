@@ -48,4 +48,17 @@ func main() {
 		list[i] = make([]int, len(original))
 		copy(list[i], original)
 		// add i
-		if find_sysca
+		if find_syscall(i, original) == -1 {
+			list[i] = append(list[i], i)
+		}
+
+		// for j := 499; j < 500; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 293; j < 294; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		/
