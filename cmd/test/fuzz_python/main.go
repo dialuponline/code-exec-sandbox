@@ -61,4 +61,22 @@ func main() {
 		// for j := 293; j < 294; j++ {
 		// 	if find_syscall(j, list[i]) == -1 {
 		// 		list[i] = append(list[i], j)
-		/
+		// 	}
+		// }
+
+		// for j := 220; j < 220; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+
+		// for j := 100; j < 100; j++ {
+		// 	if find_syscall(j, list[i]) == -1 {
+		// 		list[i] = append(list[i], j)
+		// 	}
+		// }
+	}
+
+	lock := sync.Mutex{}
+	wg := sync.WaitGroup{}
+	i 
