@@ -100,4 +100,6 @@ func main() {
 		}()
 	}
 
-	// wait for al
+	// wait for all tasks to finish
+	wg.Wait()
+}
