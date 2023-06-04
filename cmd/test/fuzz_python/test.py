@@ -25,4 +25,10 @@ import sys
 import traceback
 import os
 
-os.chdir("/var/san
+os.chdir("/var/sandbox/sandbox-python")
+
+lib.DifySeccomp(65537, 1001, 1)
+
+# declare main function here
+def main() -> dict:
+    original_strings_with_empty = ["apple", "", "cherry", "date", "", "fig", "grape", "honeydew", "kiwi", "", "mango", "nectarine", "orange", "papaya", "quince", "raspberry", "strawberry"
