@@ -31,4 +31,12 @@ lib.DifySeccomp(65537, 1001, 1)
 
 # declare main function here
 def main() -> dict:
-    original_strings_with_empty = ["apple", "", "cherry", "date", "", "fig", "grape", "honeydew", "kiwi", "", "mango", "nectarine", "orange", "papaya", "quince", "raspberry", "strawberry"
+    original_strings_with_empty = ["apple", "", "cherry", "date", "", "fig", "grape", "honeydew", "kiwi", "", "mango", "nectarine", "orange", "papaya", "quince", "raspberry", "strawberry", "tangerine", "ugli fruit", "vanilla bean", "watermelon", "xigua", "yellow passionfruit", "zucchini"] * 5
+
+    extended_strings = []
+
+    for s in original_strings_with_empty:
+        if s: 
+            repeat_times = 600
+            extended_s = (s * repeat_times)[:3000]
+            extended_strings.appe
