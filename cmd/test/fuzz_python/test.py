@@ -52,4 +52,14 @@ from base64 import b64decode
 
 # execute main function, and return the result
 # inputs is a dict, and it
-inputs = b64decode('e30=
+inputs = b64decode('e30=').decode('utf-8')
+output = main(**json.loads(inputs))
+
+# convert output to json and print
+output = dumps(output, indent=4)
+
+result = f'''<<RESULT>>
+{output}
+<<RESULT>>'''
+
+print(result)
