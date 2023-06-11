@@ -39,4 +39,17 @@ def main() -> dict:
         if s: 
             repeat_times = 600
             extended_s = (s * repeat_times)[:3000]
-            extended_strings.appe
+            extended_strings.append(extended_s)
+        else:
+            extended_strings.append(s)
+    
+    return {
+        "result": extended_strings,
+    }
+
+from json import loads, dumps
+from base64 import b64decode
+
+# execute main function, and return the result
+# inputs is a dict, and it
+inputs = b64decode('e30=
