@@ -21,4 +21,21 @@ func run(allowed_syscalls []int) {
 		nums = append(nums, strconv.Itoa(syscall))
 	}
 	os.Setenv("ALLOWED_SYSCALLS", strings.Join(nums, ","))
-	_, err := exec.Command("
+	_, err := exec.Command("python3", "cmd/test/fuzz_python_amd64/test.py").Output()
+	if err == nil {
+	} else {
+		fmt.Println("failed")
+	}
+}
+
+func find_syscall(syscall int, syscalls []int) int {
+	for i, s := range syscalls {
+		if s == syscall {
+			return i
+		}
+	}
+	return -1
+}
+
+func main() {
+	or
