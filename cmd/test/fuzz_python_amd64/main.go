@@ -38,4 +38,13 @@ func find_syscall(syscall int, syscalls []int) int {
 }
 
 func main() {
-	or
+	original := python_syscall.ALLOW_SYSCALLS
+	original = append(original, python_syscall.ALLOW_NETWORK_SYSCALLS...)
+
+	// generate task list
+	list := make([][]int, SYSCALL_NUMS)
+	for i := 0; i < SYSCALL_NUMS; i++ {
+		list[i] = make([]int, len(original))
+		copy(list[i], original)
+		// add i
+		if find_s
