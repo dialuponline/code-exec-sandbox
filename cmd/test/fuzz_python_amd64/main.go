@@ -47,4 +47,22 @@ func main() {
 		list[i] = make([]int, len(original))
 		copy(list[i], original)
 		// add i
-		if find_s
+		if find_syscall(i, original) == -1 {
+			list[i] = append(list[i], i)
+		}
+	}
+
+	lock := sync.Mutex{}
+	wg := sync.WaitGroup{}
+	i := 0
+
+	// run 4 tasks concurrently
+	for j := 0; j < 4; j++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for {
+				lock.Lock()
+				if i >= len(list) {
+					lock.Unlock()
+					retu
