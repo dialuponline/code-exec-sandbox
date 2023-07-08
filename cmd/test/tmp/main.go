@@ -17,4 +17,26 @@ func main() {
 	go func() {
 		for {
 			buf := make([]byte, 1024)
-	
+			n, _ := reader.Read(buf)
+			if n == 0 {
+				break
+			}
+			print(string(buf))
+		}
+	}()
+
+	go func() {
+		for {
+			buf := make([]byte, 1024)
+			n, _ := stderr_reader.Read(buf)
+			if n == 0 {
+				break
+			}
+			print(string(buf))
+		}
+	}()
+
+	err := cmd.Wait()
+
+	if err != nil {
+		fmt.Println(err.Error())
