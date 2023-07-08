@@ -65,4 +65,16 @@ func main() {
 				lock.Lock()
 				if i >= len(list) {
 					lock.Unlock()
-					retu
+					return
+				}
+				task := list[i]
+				i++
+				lock.Unlock()
+				run(task)
+			}
+		}()
+	}
+
+	// wait for all tasks to finish
+	wg.Wait()
+}
