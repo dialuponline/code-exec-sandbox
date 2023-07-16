@@ -10,3 +10,5 @@ enable_network: True # please make sure there is no network risk in your environ
 allowed_syscalls: # please leave it empty if you have no idea how seccomp works
 proxy:
   socks5: ''
+  http: ''
+  https: ''

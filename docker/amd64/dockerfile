@@ -1,0 +1,7 @@
+FROM python:3.10-slim-bookworm
+
+RUN apt-get clean \
+    && echo "deb http://deb.debian.org/debian testing main" > /etc/apt/sources.list \
+    && apt-get update \
+    && apt-get install -y pkg-config libseccomp-dev wget xz-utils \
+    && apt-get install -y --no-in
