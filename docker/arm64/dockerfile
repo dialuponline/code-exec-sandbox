@@ -17,4 +17,8 @@ COPY conf/config.yaml /conf/config.yaml
 COPY dependencies/python-requirements.txt /dependencies/python-requirements.txt
 
 RUN rm -rf /var/lib/apt/lists/* \
-    && c
+    && chmod +x /main \
+    && chmod +x /env \
+    && pip3 install jinja2 requests httpx PySocks httpx[socks] \
+    && wget -O /opt/node-v20.11.1-linux-arm64.tar.xz https://npmmirror.com/mirrors/node/v20.11.1/node-v20.11.1-linux-arm64.tar.xz \
+    && tar -xvf /opt/node-v20.11.1-linux-arm64.tar.xz -C /opt \
