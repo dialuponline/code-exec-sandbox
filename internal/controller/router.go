@@ -9,4 +9,20 @@ import (
 
 func Setup(Router *gin.Engine) {
 	PublicGroup := Router.Group("")
-	Privat
+	PrivateGroup := Router.Group("/v1/sandbox/")
+
+	PrivateGroup.Use(middleware.Auth())
+
+	{
+		// health check
+		PublicGroup.GET("/health", func(c *gin.Context) {
+			c.JSON(http.StatusOK, "ok")
+		})
+	}
+
+	InitRunRouter(PrivateGroup)
+	InitDependencyRouter(PrivateGroup)
+}
+
+func InitDependencyRouter(Router *gin.RouterGroup) {
+	depend
