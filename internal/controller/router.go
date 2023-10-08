@@ -34,4 +34,13 @@ func InitDependencyRouter(Router *gin.RouterGroup) {
 }
 
 func InitRunRouter(Router *gin.RouterGroup) {
-	runRouter := Router.Gro
+	runRouter := Router.Group("")
+	{
+		runRouter.POST(
+			"run",
+			middleware.MaxRequest(static.GetDifySandboxGlobalConfigurations().MaxRequests),
+			middleware.MaxWorker(static.GetDifySandboxGlobalConfigurations().MaxWorkers),
+			RunSandboxController,
+		)
+	}
+}
