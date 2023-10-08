@@ -25,4 +25,13 @@ func Setup(Router *gin.Engine) {
 }
 
 func InitDependencyRouter(Router *gin.RouterGroup) {
-	depend
+	dependencyRouter := Router.Group("dependencies")
+	{
+		dependencyRouter.GET("", GetDependencies)
+		dependencyRouter.POST("update", UpdateDependencies)
+		dependencyRouter.GET("refresh", RefreshDependencies)
+	}
+}
+
+func InitRunRouter(Router *gin.RouterGroup) {
+	runRouter := Router.Gro
