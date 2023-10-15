@@ -24,4 +24,17 @@ func RunSandboxController(c *gin.Context) {
 				EnableNetwork: req.EnableNetwork,
 			}))
 		default:
-			c.JSON(400, types.ErrorResponse(-400, "un
+			c.JSON(400, types.ErrorResponse(-400, "unsupported language"))
+		}
+	})
+}
+
+func GetDependencies(c *gin.Context) {
+	BindRequest(c, func(req struct {
+		Language string `json:"language" form:"language" binding:"required"`
+	}) {
+		switch req.Language {
+		case "python3":
+			c.JSON(200, service.ListPython3Dependencies())
+		default:
+			c.JSON(4
