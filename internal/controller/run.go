@@ -16,4 +16,12 @@ func RunSandboxController(c *gin.Context) {
 	}) {
 		switch req.Language {
 		case "python3":
-			c.JSON(200, 
+			c.JSON(200, service.RunPython3Code(req.Code, req.Preload, &runner_types.RunnerOptions{
+				EnableNetwork: req.EnableNetwork,
+			}))
+		case "nodejs":
+			c.JSON(200, service.RunNodeJsCode(req.Code, req.Preload, &runner_types.RunnerOptions{
+				EnableNetwork: req.EnableNetwork,
+			}))
+		default:
+			c.JSON(400, types.ErrorResponse(-400, "un
