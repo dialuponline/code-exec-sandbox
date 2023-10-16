@@ -37,4 +37,13 @@ func GetDependencies(c *gin.Context) {
 		case "python3":
 			c.JSON(200, service.ListPython3Dependencies())
 		default:
-			c.JSON(4
+			c.JSON(400, types.ErrorResponse(-400, "unsupported language"))
+		}
+	})
+}
+
+func UpdateDependencies(c *gin.Context) {
+	BindRequest(c, func(req struct {
+		Language string `json:"language" form:"language" binding:"required"`
+	}) {
+		switch req.Lan
