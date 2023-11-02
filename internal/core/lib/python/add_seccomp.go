@@ -39,4 +39,21 @@ func InitSeccomp(uid int, gid int, enable_network bool) error {
 			allowed_syscalls = append(allowed_syscalls, syscall)
 		}
 	} else {
-		allowed_syscalls = append(allowed_syscalls, python_syscall.ALLOW_SYSCALLS.
+		allowed_syscalls = append(allowed_syscalls, python_syscall.ALLOW_SYSCALLS...)
+		if enable_network {
+			allowed_syscalls = append(allowed_syscalls, python_syscall.ALLOW_NETWORK_SYSCALLS...)
+		}
+	}
+
+	err = lib.Seccomp(allowed_syscalls, allowed_not_kill_syscalls)
+	if err != nil {
+		return err
+	}
+
+	// setuid
+	err = syscall.Setuid(uid)
+	if err != nil {
+		return err
+	}
+
+	// setg
