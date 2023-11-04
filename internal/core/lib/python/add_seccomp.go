@@ -56,4 +56,11 @@ func InitSeccomp(uid int, gid int, enable_network bool) error {
 		return err
 	}
 
-	// setg
+	// setgid
+	err = syscall.Setgid(gid)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
