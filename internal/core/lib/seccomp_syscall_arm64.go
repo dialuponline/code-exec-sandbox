@@ -5,4 +5,5 @@ package lib
 import "syscall"
 
 const (
-	SYS_SECCOMP = syscall.SYS_SEC
+	SYS_SECCOMP = syscall.SYS_SECCOMP
+)
