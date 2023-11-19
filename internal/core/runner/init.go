@@ -24,3 +24,15 @@ func init() {
 			log.Panic("failed to create user: %v, %v", err, string(output))
 		}
 	}
+
+	// get gid of sandbox user and setgid
+	gid, err := exec.Command("id", "-g", static.SANDBOX_USER).Output()
+	if err != nil {
+		log.Panic("failed to get gid of user: %v", err)
+	}
+
+	static.SANDBOX_GROUP_ID, err = strconv.Atoi(strings.TrimSpace(string(gid)))
+	if err != nil {
+		log.Panic("failed to convert gid: %v", err)
+	}
+}
