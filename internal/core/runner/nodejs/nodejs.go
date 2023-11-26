@@ -41,4 +41,12 @@ func (p *NodeJsRunner) Run(
 	preload string,
 	options *types.RunnerOptions,
 ) (chan []byte, chan []byte, chan bool, error) {
-	configuration := static.
+	configuration := static.GetDifySandboxGlobalConfigurations()
+
+	// capture the output
+	output_handler := runner.NewOutputCaptureRunner()
+	output_handler.SetTimeout(timeout)
+
+	err := p.WithTempDir("/", REQUIRED_FS, func(root_path string) error {
+		output_handler.SetAfterExitHook(func() {
+			os.RemoveAll
