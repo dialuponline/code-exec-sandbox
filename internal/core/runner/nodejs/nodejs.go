@@ -49,4 +49,17 @@ func (p *NodeJsRunner) Run(
 
 	err := p.WithTempDir("/", REQUIRED_FS, func(root_path string) error {
 		output_handler.SetAfterExitHook(func() {
-			os.RemoveAll
+			os.RemoveAll(root_path)
+			os.Remove(root_path)
+		})
+
+		// initialize the environment
+		script_path, err := p.InitializeEnvironment(code, preload, root_path)
+		if err != nil {
+			return err
+		}
+
+		// create a new process
+		cmd := exec.Command(
+			static.GetDifySandboxGlobalConfigurations().NodejsPath,
+		
