@@ -27,4 +27,18 @@ var (
 		path.Join(LIB_PATH, PROJECT_NAME, "node_temp"),
 		path.Join(LIB_PATH, LIB_NAME),
 		"/etc/ssl/certs/ca-certificates.crt",
-		"/etc/nsswitch.
+		"/etc/nsswitch.conf",
+		"/etc/resolv.conf",
+		"/run/systemd/resolve/stub-resolv.conf",
+		"/etc/hosts",
+	}
+)
+
+func (p *NodeJsRunner) Run(
+	code string,
+	timeout time.Duration,
+	stdin []byte,
+	preload string,
+	options *types.RunnerOptions,
+) (chan []byte, chan []byte, chan bool, error) {
+	configuration := static.
