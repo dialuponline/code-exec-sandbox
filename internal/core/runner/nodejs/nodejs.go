@@ -62,4 +62,12 @@ func (p *NodeJsRunner) Run(
 		// create a new process
 		cmd := exec.Command(
 			static.GetDifySandboxGlobalConfigurations().NodejsPath,
-		
+			script_path,
+			strconv.Itoa(static.SANDBOX_USER_UID),
+			strconv.Itoa(static.SANDBOX_GROUP_ID),
+			options.Json(),
+		)
+		cmd.Env = []string{}
+
+		if len(configuration.AllowedSyscalls) > 0 {
+			cmd.Env = append(cmd.Env, fmt.Sprintf("ALLOWED_SYSCALLS=%s", strings.Trim(strings.Join(strings.Fields(fmt.Sprint(
