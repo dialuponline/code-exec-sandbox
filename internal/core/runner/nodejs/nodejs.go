@@ -86,4 +86,14 @@ func (p *NodeJsRunner) Run(
 		return nil, nil, nil, err
 	}
 
-	return output_handler.GetStdout(), output_handler.Get
+	return output_handler.GetStdout(), output_handler.GetStderr(), output_handler.GetDone(), nil
+}
+
+func (p *NodeJsRunner) InitializeEnvironment(code string, preload string, root_path string) (string, error) {
+	if !checkLibAvaliable() {
+		releaseLibBinary()
+	}
+
+	node_sandbox_file := string(nodejs_sandbox_fs)
+	if preload != "" {
+		node_sandbox_file = fmt.Sprintf("%s\n%s", preload
