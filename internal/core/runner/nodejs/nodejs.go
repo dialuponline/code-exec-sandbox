@@ -96,4 +96,12 @@ func (p *NodeJsRunner) InitializeEnvironment(code string, preload string, root_p
 
 	node_sandbox_file := string(nodejs_sandbox_fs)
 	if preload != "" {
-		node_sandbox_file = fmt.Sprintf("%s\n%s", preload
+		node_sandbox_file = fmt.Sprintf("%s\n%s", preload, node_sandbox_file)
+	}
+
+	// join nodejs_sandbox_fs and code
+	code = node_sandbox_file + code
+
+	// override root_path/tmp/sandbox-nodejs-project/prescript.js
+	script_path := path.Join(root_path, LIB_PATH, PROJECT_NAME, "node_temp/node_temp/test.js")
+	err := os.WriteFile(script_path, []byte(code), 0755)
