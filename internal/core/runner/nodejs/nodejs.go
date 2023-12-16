@@ -105,3 +105,9 @@ func (p *NodeJsRunner) InitializeEnvironment(code string, preload string, root_p
 	// override root_path/tmp/sandbox-nodejs-project/prescript.js
 	script_path := path.Join(root_path, LIB_PATH, PROJECT_NAME, "node_temp/node_temp/test.js")
 	err := os.WriteFile(script_path, []byte(code), 0755)
+	if err != nil {
+		return "", err
+	}
+
+	return script_path, nil
+}
