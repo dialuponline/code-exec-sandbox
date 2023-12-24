@@ -46,4 +46,13 @@ func releaseLibBinary() {
 	}
 
 	// copy the nodejs project into /tmp/sandbox-nodejs-project
-	var recursively_copy
+	var recursively_copy func(src string, dst string) error
+	recursively_copy = func(src string, dst string) error {
+		entries, err := nodejs_dependens.ReadDir(src)
+		if err != nil {
+			return err
+		}
+		for _, entry := range entries {
+			src_path := src + "/" + entry.Name()
+			dst_path := dst + "/" + entry.Name()
+			if entry.IsDir
