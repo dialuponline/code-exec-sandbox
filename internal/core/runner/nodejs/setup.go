@@ -55,4 +55,19 @@ func releaseLibBinary() {
 		for _, entry := range entries {
 			src_path := src + "/" + entry.Name()
 			dst_path := dst + "/" + entry.Name()
-			if entry.IsDir
+			if entry.IsDir() {
+				err = os.Mkdir(dst_path, 0755)
+				if err != nil {
+					return err
+				}
+				err = recursively_copy(src_path, dst_path)
+				if err != nil {
+					return err
+				}
+			} else {
+				data, err := nodejs_dependens.ReadFile(src_path)
+				if err != nil {
+					return err
+				}
+				err = os.WriteFile(dst_path, data, 0755)
+			
