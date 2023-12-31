@@ -70,4 +70,20 @@ func releaseLibBinary() {
 					return err
 				}
 				err = os.WriteFile(dst_path, data, 0755)
-			
+				if err != nil {
+					return err
+				}
+			}
+		}
+		return nil
+	}
+
+	err = recursively_copy("dependens", path.Join(LIB_PATH, PROJECT_NAME))
+	if err != nil {
+		log.Panic("failed to copy nodejs project")
+	}
+	log.Info("nodejs runner environment initialized")
+}
+
+func checkLibAvaliable() bool {
+	if _, err := os.Stat(path.J
