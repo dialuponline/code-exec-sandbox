@@ -86,4 +86,9 @@ func releaseLibBinary() {
 }
 
 func checkLibAvaliable() bool {
-	if _, err := os.Stat(path.J
+	if _, err := os.Stat(path.Join(LIB_PATH, LIB_NAME)); err != nil {
+		return false
+	}
+
+	return true
+}
