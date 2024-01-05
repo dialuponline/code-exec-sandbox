@@ -14,4 +14,20 @@ import (
 type OutputCaptureRunner struct {
 	stdout chan []byte
 	stderr chan []byte
-	
+	done   chan bool
+
+	timeout time.Duration
+
+	after_exit_hook func()
+}
+
+func NewOutputCaptureRunner() *OutputCaptureRunner {
+	return &OutputCaptureRunner{
+		stdout: make(chan []byte),
+		stderr: make(chan []byte),
+		done:   make(chan bool),
+	}
+}
+
+func (s *OutputCaptureRunner) WriteError(data []byte) {
+	if s.stderr != n
