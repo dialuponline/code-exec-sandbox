@@ -30,4 +30,20 @@ func NewOutputCaptureRunner() *OutputCaptureRunner {
 }
 
 func (s *OutputCaptureRunner) WriteError(data []byte) {
-	if s.stderr != n
+	if s.stderr != nil {
+		s.stderr <- data
+	}
+}
+
+func (s *OutputCaptureRunner) WriteOutput(data []byte) {
+	if s.stdout != nil {
+		s.stdout <- data
+	}
+}
+
+func (s *OutputCaptureRunner) SetAfterExitHook(hook func()) {
+	s.after_exit_hook = hook
+}
+
+func (s *OutputCaptureRunner) SetTimeout(timeout time.Duration) {
+	s.timeout 
