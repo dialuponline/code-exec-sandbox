@@ -46,4 +46,19 @@ func (s *OutputCaptureRunner) SetAfterExitHook(hook func()) {
 }
 
 func (s *OutputCaptureRunner) SetTimeout(timeout time.Duration) {
-	s.timeout 
+	s.timeout = timeout
+}
+
+func (s *OutputCaptureRunner) CaptureOutput(cmd *exec.Cmd) error {
+	// start a timer for the timeout
+	timeout := s.timeout
+	if timeout == 0 {
+		timeout = 5 * time.Second
+	}
+
+	timer := time.NewTimer(timeout)
+	go func() {
+		<-timer.C
+		if cmd != nil && cmd.Process != nil {
+			// write the error
+			s.WriteError([
