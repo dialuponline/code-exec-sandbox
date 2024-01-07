@@ -61,4 +61,17 @@ func (s *OutputCaptureRunner) CaptureOutput(cmd *exec.Cmd) error {
 		<-timer.C
 		if cmd != nil && cmd.Process != nil {
 			// write the error
-			s.WriteError([
+			s.WriteError([]byte("error: timeout\n"))
+			// send a signal to the process
+			cmd.Process.Kill()
+		}
+	}()
+
+	// create a pipe for the stdout
+	stdout_reader, err := cmd.StdoutPipe()
+	if err != nil {
+		return err
+	}
+
+	// create a pipe for the stderr
+	stderr_reader, err := cmd.StderrPipe
