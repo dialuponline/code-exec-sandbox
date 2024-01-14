@@ -74,4 +74,27 @@ func (s *OutputCaptureRunner) CaptureOutput(cmd *exec.Cmd) error {
 	}
 
 	// create a pipe for the stderr
-	stderr_reader, err := cmd.StderrPipe
+	stderr_reader, err := cmd.StderrPipe()
+	if err != nil {
+		stdout_reader.Close()
+		return err
+	}
+
+	// start the process
+	err = cmd.Start()
+	if err != nil {
+		stdout_reader.Close()
+		stderr_reader.Close()
+		return err
+	}
+
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+
+	written := 0
+
+	// read the output
+	go func() {
+		defer wg.Done()
+		for {
+			buf := m
