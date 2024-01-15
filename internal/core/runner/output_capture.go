@@ -97,4 +97,20 @@ func (s *OutputCaptureRunner) CaptureOutput(cmd *exec.Cmd) error {
 	go func() {
 		defer wg.Done()
 		for {
-			buf := m
+			buf := make([]byte, 1024)
+			n, err := stdout_reader.Read(buf)
+			// exit if EOF
+			if err != nil {
+				if err == io.EOF {
+					break
+				} else {
+					s.WriteError([]byte(fmt.Sprintf("error: %v\n", err)))
+					break
+				}
+			}
+			written += n
+			s.WriteOutput(buf[:n])
+		}
+	}()
+
+	// read the error
