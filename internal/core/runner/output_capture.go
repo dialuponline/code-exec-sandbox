@@ -141,4 +141,14 @@ func (s *OutputCaptureRunner) CaptureOutput(cmd *exec.Cmd) error {
 		status, err := cmd.Process.Wait()
 		if err != nil {
 			log.Error("process finished with status: %v", status.String())
-			s.WriteError([]byte(fmt.Sprintf("error: %v\n"
+			s.WriteError([]byte(fmt.Sprintf("error: %v\n", err)))
+		} else if status.ExitCode() != 0 {
+			exit_string := status.String()
+			if strings.Contains(exit_string, "bad system call") {
+				s.WriteError([]byte("error: operation not permitted\n"))
+			} else {
+				s.WriteError([]byte(fmt.Sprintf("error: %v\n", exit_string)))
+			}
+		}
+
+		if s.after_exit_hook != n
