@@ -132,4 +132,13 @@ func (s *OutputCaptureRunner) CaptureOutput(cmd *exec.Cmd) error {
 		}
 	}()
 
-	// 
+	// wait for the process to finish
+	go func() {
+		// wait for the stdout and stderr to finish
+		wg.Wait()
+
+		// wait for the process to finish
+		status, err := cmd.Process.Wait()
+		if err != nil {
+			log.Error("process finished with status: %v", status.String())
+			s.WriteError([]byte(fmt.Sprintf("error: %v\n"
