@@ -151,4 +151,25 @@ func (s *OutputCaptureRunner) CaptureOutput(cmd *exec.Cmd) error {
 			}
 		}
 
-		if s.after_exit_hook != n
+		if s.after_exit_hook != nil {
+			s.after_exit_hook()
+		}
+
+		// stop the timer
+		timer.Stop()
+
+		s.done <- true
+	}()
+
+	return nil
+}
+
+func (s *OutputCaptureRunner) GetStdout() chan []byte {
+	return s.stdout
+}
+
+func (s *OutputCaptureRunner) GetStderr() chan []byte {
+	return s.stderr
+}
+
+func (s *OutputCaptureRunner) GetDone() ch
