@@ -172,4 +172,6 @@ func (s *OutputCaptureRunner) GetStderr() chan []byte {
 	return s.stderr
 }
 
-func (s *OutputCaptureRunner) GetDone() ch
+func (s *OutputCaptureRunner) GetDone() chan bool {
+	return s.done
+}
