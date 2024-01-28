@@ -21,4 +21,11 @@ func GetDependency(package_name string, version string) string {
 	return preload_script_map[package_name]
 }
 
-func ListDependencies() []types.Dependen
+func ListDependencies() []types.Dependency {
+	dependencies := []types.Dependency{}
+	preload_script_map_lock.RLock()
+	defer preload_script_map_lock.RUnlock()
+	for package_name, version := range preload_script_map {
+		dependencies = append(dependencies, types.Dependency{
+			Name:    package_name,
+			Version:
