@@ -28,4 +28,9 @@ func ListDependencies() []types.Dependency {
 	for package_name, version := range preload_script_map {
 		dependencies = append(dependencies, types.Dependency{
 			Name:    package_name,
-			Version:
+			Version: version,
+		})
+	}
+
+	return dependencies
+}
