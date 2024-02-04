@@ -28,3 +28,24 @@ func PreparePythonDependenciesEnv() error {
 			// check if the lib path is available
 			if _, err := os.Stat(lib_path); err != nil {
 				log.Warn("python lib path %s is not available", lib_path)
+				continue
+			}
+			exec_cmd := exec.Command(
+				"bash",
+				path.Join(root_path, "env.sh"),
+				lib_path,
+				LIB_PATH,
+			)
+			exec_cmd.Stderr = os.Stderr
+
+			if err := exec_cmd.Run(); err != nil {
+				return err
+			}
+		}
+
+		os.RemoveAll(root_path)
+		os.Remove(root_path)
+		return nil
+	})
+
+	return e
