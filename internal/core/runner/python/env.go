@@ -48,4 +48,5 @@ func PreparePythonDependenciesEnv() error {
 		return nil
 	})
 
-	return e
+	return err
+}
