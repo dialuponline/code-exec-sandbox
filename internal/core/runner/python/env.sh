@@ -29,4 +29,13 @@ copy_and_link() {
 
 # Check if src is a file or directory
 if [ -f "$src" ]; then
-    # src is a file, create 
+    # src is a file, create hard link directly in dest
+    mkdir -p "$(dirname "$dest/$src")"
+    copy_and_link "$src" "$dest/$src"
+elif [ -d "$src" ]; then
+    # src is a directory, process as before
+    mkdir -p "$dest/$src"
+
+    # Find all files in the source directory
+    find "$src" -type f,l | while read -r file; do
+        # 
