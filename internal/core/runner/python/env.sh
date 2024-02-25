@@ -45,4 +45,9 @@ elif [ -d "$src" ]; then
         # Create the same directory structure in the destination
         mkdir -p "$dest/$src/$rel_dir"
         # Copy and link the file
-        copy_and_l
+        copy_and_link "$file" "$dest/$src/$rel_path"
+    done
+else
+    echo "Error: $src is neither a file nor a directory"
+    exit 1
+fi
