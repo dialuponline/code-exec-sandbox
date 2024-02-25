@@ -38,4 +38,11 @@ elif [ -d "$src" ]; then
 
     # Find all files in the source directory
     find "$src" -type f,l | while read -r file; do
-        # 
+        # Get the relative path of the file
+        rel_path="${file#$src/}"
+        # Get the directory of the relative path
+        rel_dir=$(dirname "$rel_path")
+        # Create the same directory structure in the destination
+        mkdir -p "$dest/$src/$rel_dir"
+        # Copy and link the file
+        copy_and_l
