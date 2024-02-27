@@ -17,4 +17,24 @@ lib.DifySeccomp.restype = None
 # get running path
 running_path = sys.argv[1]
 if not running_path:
- 
+    exit(-1)
+
+# get decrypt key
+key = sys.argv[2]
+if not key:
+    exit(-1)
+
+from base64 import b64decode
+key = b64decode(key)
+
+os.chdir(running_path)
+
+{{preload}}
+
+lib.DifySeccomp({{uid}}, {{gid}}, {{enable_network}})
+
+code = b64decode("{{code}}")
+
+def decrypt(code, key):
+    key_len = len(key)
+    code_len
