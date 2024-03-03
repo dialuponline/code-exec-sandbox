@@ -143,3 +143,34 @@ func (p *PythonRunner) InitializeEnvironment(code string, preload string, option
 	if err != nil {
 		return "", "", err
 	}
+
+	// encrypt the code
+	encrypted_code := make([]byte, len(code))
+	for i := 0; i < len(code); i++ {
+		encrypted_code[i] = code[i] ^ key[i%key_len]
+	}
+
+	// encode code using base64
+	code = base64.StdEncoding.EncodeToString(encrypted_code)
+	// encode key using base64
+	encoded_key := base64.StdEncoding.EncodeToString(key)
+
+	code = strings.Replace(
+		script,
+		"{{code}}",
+		code,
+		1,
+	)
+
+	untrusted_code_path := fmt.Sprintf("%s/tmp/%s.py", LIB_PATH, temp_code_name)
+	err = os.MkdirAll(path.Dir(untrusted_code_path), 0755)
+	if err != nil {
+		return "", "", err
+	}
+	err = os.WriteFile(untrusted_code_path, []byte(code), 0755)
+	if err != nil {
+		return "", "", err
+	}
+
+	return untrusted_code_path, encoded_key, nil
+}
