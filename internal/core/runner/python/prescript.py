@@ -37,4 +37,11 @@ code = b64decode("{{code}}")
 
 def decrypt(code, key):
     key_len = len(key)
-    code_len
+    code_len = len(code)
+    code = bytearray(code)
+    for i in range(code_len):
+        code[i] = code[i] ^ key[i % key_len]
+    return bytes(code)
+
+code = decrypt(code, key)
+exec(code)
