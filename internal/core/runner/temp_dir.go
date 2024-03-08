@@ -32,4 +32,16 @@ func (s *TempDirRunner) WithTempDir(basedir string, paths []string, closures fun
 			continue
 		}
 
-		if file_info.IsDir
+		if file_info.IsDir() {
+			err = os.MkdirAll(path.Join(tmp_dir, file_path), 0755)
+			if err != nil {
+				return err
+			}
+		} else {
+			err = os.MkdirAll(path.Join(tmp_dir, path.Dir(file_path)), 0755)
+			if err != nil {
+				return err
+			}
+		}
+
+		err = exec.Command("cp", "-r", file_path, path.Join(tmp_dir, file_path)).Ru
