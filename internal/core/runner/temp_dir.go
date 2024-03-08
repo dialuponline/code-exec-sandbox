@@ -17,4 +17,19 @@ func (s *TempDirRunner) WithTempDir(basedir string, paths []string, closures fun
 	}
 
 	// create a tmp dir
-	tmp_dir := path.Join(basedir, "tmp", "sandbo
+	tmp_dir := path.Join(basedir, "tmp", "sandbox-"+uuid.String())
+	err = os.Mkdir(tmp_dir, 0755)
+	if err != nil {
+		return err
+	}
+
+	// copy files to tmp dir
+	for _, file_path := range paths {
+		// create path in tmp dir
+		// check if it's a dir
+		file_info, err := os.Stat(file_path)
+		if err != nil {
+			continue
+		}
+
+		if file_info.IsDir
