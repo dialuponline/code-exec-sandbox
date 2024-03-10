@@ -44,4 +44,22 @@ func (s *TempDirRunner) WithTempDir(basedir string, paths []string, closures fun
 			}
 		}
 
-		err = exec.Command("cp", "-r", file_path, path.Join(tmp_dir, file_path)).Ru
+		err = exec.Command("cp", "-r", file_path, path.Join(tmp_dir, file_path)).Run()
+		if err != nil {
+			return err
+		}
+	}
+
+	// chdir
+	err = os.Chdir(tmp_dir)
+	if err != nil {
+		return err
+	}
+
+	err = closures(tmp_dir)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
