@@ -35,4 +35,20 @@ func MaxRequest(max int) gin.HandlerFunc {
 	}
 
 	return func(c *gin.Context) {
-		m.lock.RL
+		m.lock.RLock()
+		if m.current >= max {
+			m.lock.RUnlock()
+			c.JSON(http.StatusServiceUnavailable, types.ErrorResponse(-503, "Too many requests"))
+			c.Abort()
+			return
+		}
+		m.lock.RUnlock()
+		m.lock.Lock()
+		m.current++
+		m.lock.Unlock()
+		c.Next()
+		m.lock.Lock()
+		m.current--
+		m.lock.Unlock()
+	}
+}
