@@ -17,4 +17,22 @@ func MaxWorker(max int) gin.HandlerFunc {
 		sem <- struct{}{}
 		defer func() {
 			<-sem
-		}
+		}()
+		c.Next()
+	}
+}
+
+type MaxRequestIface struct {
+	current int
+	lock    *sync.RWMutex
+}
+
+func MaxRequest(max int) gin.HandlerFunc {
+	log.Info("setting max requests to %d", max)
+	m := &MaxRequestIface{
+		current: 0,
+		lock:    &sync.RWMutex{},
+	}
+
+	return func(c *gin.Context) {
+		m.lock.RL
