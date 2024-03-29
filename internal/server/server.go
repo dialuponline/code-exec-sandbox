@@ -21,4 +21,18 @@ func initConfig() {
 
 	err = static.SetupRunnerDependencies()
 	if err != nil {
-		log.Error("failed to setup runner dependencies: %v", err
+		log.Error("failed to setup runner dependencies: %v", err)
+	}
+	log.Info("runner dependencies init success")
+}
+
+func initServer() {
+	config := static.GetDifySandboxGlobalConfigurations()
+	if !config.App.Debug {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
+	r := gin.Default()
+	r.Use(gin.Recovery())
+	if gin.Mode() == gin.DebugMode {
+		r.Use(gin.L
