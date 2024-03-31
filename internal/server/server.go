@@ -35,4 +35,17 @@ func initServer() {
 	r := gin.Default()
 	r.Use(gin.Recovery())
 	if gin.Mode() == gin.DebugMode {
-		r.Use(gin.L
+		r.Use(gin.Logger())
+	}
+
+	controller.Setup(r)
+
+	r.Run(fmt.Sprintf(":%d", config.App.Port))
+}
+
+func initDependencies() {
+	log.Info("installing python dependencies...")
+	dependencies := static.GetRunnerDependencies()
+	err := python.InstallDependencies(dependencies.PythonRequirements)
+	if err != nil {
+		log
