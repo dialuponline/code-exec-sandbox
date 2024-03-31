@@ -48,4 +48,13 @@ func initDependencies() {
 	dependencies := static.GetRunnerDependencies()
 	err := python.InstallDependencies(dependencies.PythonRequirements)
 	if err != nil {
-		log
+		log.Panic("failed to install python dependencies: %v", err)
+	}
+	log.Info("python dependencies installed")
+
+	log.Info("initializing python dependencies sandbox...")
+	err = python.PreparePythonDependenciesEnv()
+	if err != nil {
+		log.Panic("failed to initialize python dependencies sandbox: %v", err)
+	}
+	log.In
