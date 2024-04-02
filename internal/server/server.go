@@ -57,4 +57,11 @@ func initDependencies() {
 	if err != nil {
 		log.Panic("failed to initialize python dependencies sandbox: %v", err)
 	}
-	log.In
+	log.Info("python dependencies sandbox initialized")
+
+	// start a ticker to update python dependencies every 30 minutes to keep the sandbox up-to-date
+	go func() {
+		ticker := time.NewTicker(30 * time.Minute)
+		for range ticker.C {
+			log.Info("updating python dependencies...")
+			err := python.InstallD
