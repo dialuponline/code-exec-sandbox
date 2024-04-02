@@ -64,4 +64,12 @@ func initDependencies() {
 		ticker := time.NewTicker(30 * time.Minute)
 		for range ticker.C {
 			log.Info("updating python dependencies...")
-			err := python.InstallD
+			err := python.InstallDependencies(dependencies.PythonRequirements)
+			if err != nil {
+				log.Error("failed to update python dependencies: %v", err)
+			}
+			err = python.PreparePythonDependenciesEnv()
+			if err != nil {
+				log.Error("failed to update python dependencies sandbox: %v", err)
+			}
+			log.Info(
