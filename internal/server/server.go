@@ -72,4 +72,16 @@ func initDependencies() {
 			if err != nil {
 				log.Error("failed to update python dependencies sandbox: %v", err)
 			}
-			log.Info(
+			log.Info("python dependencies updated")
+		}
+	}()
+}
+
+func Run() {
+	// init config
+	initConfig()
+	// init dependencies, it will cost some times
+	go initDependencies()
+
+	initServer()
+}
