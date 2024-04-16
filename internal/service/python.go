@@ -20,4 +20,19 @@ func RunPython3Code(code string, preload string, options *runner_types.RunnerOpt
 	}
 
 	timeout := time.Duration(
-		static.GetDifySandboxGlobalConfigu
+		static.GetDifySandboxGlobalConfigurations().WorkerTimeout * int(time.Second),
+	)
+
+	runner := python.PythonRunner{}
+	stdout, stderr, done, err := runner.Run(
+		code, timeout, nil, preload, options,
+	)
+	if err != nil {
+		return types.ErrorResponse(-500, err.Error())
+	}
+
+	stdout_str := ""
+	stderr_str := ""
+
+	defer close(done)
+	de
