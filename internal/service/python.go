@@ -35,4 +35,22 @@ func RunPython3Code(code string, preload string, options *runner_types.RunnerOpt
 	stderr_str := ""
 
 	defer close(done)
-	de
+	defer close(stdout)
+	defer close(stderr)
+
+	for {
+		select {
+		case <-done:
+			return types.SuccessResponse(&RunCodeResponse{
+				Stdout: stdout_str,
+				Stderr: stderr_str,
+			})
+		case out := <-stdout:
+			stdout_str += string(out)
+		case err := <-stderr:
+			stderr_str += string(err)
+		}
+	}
+}
+
+type ListDependen
