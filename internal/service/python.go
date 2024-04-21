@@ -53,4 +53,15 @@ func RunPython3Code(code string, preload string, options *runner_types.RunnerOpt
 	}
 }
 
-type ListDependen
+type ListDependenciesResponse struct {
+	Dependencies []runner_types.Dependency `json:"dependencies"`
+}
+
+func ListPython3Dependencies() *types.DifySandboxResponse {
+	return types.SuccessResponse(&ListDependenciesResponse{
+		Dependencies: python.ListDependencies(),
+	})
+}
+
+type RefreshDependenciesResponse struct {
+	Depen
