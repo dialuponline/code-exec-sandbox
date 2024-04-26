@@ -64,4 +64,15 @@ func ListPython3Dependencies() *types.DifySandboxResponse {
 }
 
 type RefreshDependenciesResponse struct {
-	Depen
+	Dependencies []runner_types.Dependency `json:"dependencies"`
+}
+
+func RefreshPython3Dependencies() *types.DifySandboxResponse {
+	return types.SuccessResponse(&RefreshDependenciesResponse{
+		Dependencies: python.RefreshDependencies(),
+	})
+}
+
+type UpdateDependenciesResponse struct{}
+
+func Updat
