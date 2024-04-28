@@ -92,3 +92,77 @@ func InitConfig(path string) error {
 	if enable_network != "" {
 		difySandboxGlobalConfigurations.EnableNetwork, _ = strconv.ParseBool(enable_network)
 	}
+
+	allowed_syscalls := os.Getenv("ALLOWED_SYSCALLS")
+	if allowed_syscalls != "" {
+		strs := strings.Split(allowed_syscalls, ",")
+		ary := make([]int, len(strs))
+		for i := range ary {
+			ary[i], err = strconv.Atoi(strs[i])
+			if err != nil {
+				return err
+			}
+		}
+		difySandboxGlobalConfigurations.AllowedSyscalls = ary
+	}
+
+	if difySandboxGlobalConfigurations.EnableNetwork {
+		log.Info("network has been enabled")
+		socks5_proxy := os.Getenv("SOCKS5_PROXY")
+		if socks5_proxy != "" {
+			difySandboxGlobalConfigurations.Proxy.Socks5 = socks5_proxy
+		}
+
+		if difySandboxGlobalConfigurations.Proxy.Socks5 != "" {
+			log.Info("using socks5 proxy: %s", difySandboxGlobalConfigurations.Proxy.Socks5)
+		}
+
+		https_proxy := os.Getenv("HTTPS_PROXY")
+		if https_proxy != "" {
+			difySandboxGlobalConfigurations.Proxy.Https = https_proxy
+		}
+
+		if difySandboxGlobalConfigurations.Proxy.Https != "" {
+			log.Info("using https proxy: %s", difySandboxGlobalConfigurations.Proxy.Https)
+		}
+
+		http_proxy := os.Getenv("HTTP_PROXY")
+		if http_proxy != "" {
+			difySandboxGlobalConfigurations.Proxy.Http = http_proxy
+		}
+
+		if difySandboxGlobalConfigurations.Proxy.Http != "" {
+			log.Info("using http proxy: %s", difySandboxGlobalConfigurations.Proxy.Http)
+		}
+	}
+	return nil
+}
+
+// avoid global modification, use value copy instead
+func GetDifySandboxGlobalConfigurations() types.DifySandboxGlobalConfigurations {
+	return difySandboxGlobalConfigurations
+}
+
+type RunnerDependencies struct {
+	PythonRequirements string
+}
+
+var runnerDependencies RunnerDependencies
+
+func GetRunnerDependencies() RunnerDependencies {
+	return runnerDependencies
+}
+
+func SetupRunnerDependencies() error {
+	file, err := os.ReadFile("dependencies/python-requirements.txt")
+	if err != nil {
+		if err == os.ErrNotExist {
+			return nil
+		}
+		return err
+	}
+
+	runnerDependencies.PythonRequirements = string(file)
+
+	return nil
+}
