@@ -75,4 +75,11 @@ func RefreshPython3Dependencies() *types.DifySandboxResponse {
 
 type UpdateDependenciesResponse struct{}
 
-func Updat
+func UpdateDependencies() *types.DifySandboxResponse {
+	err := python.PreparePythonDependenciesEnv()
+	if err != nil {
+		return types.ErrorResponse(-500, err.Error())
+	}
+
+	return types.SuccessResponse(&UpdateDependenciesResponse{})
+}
