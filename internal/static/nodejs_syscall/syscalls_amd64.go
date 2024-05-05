@@ -34,4 +34,15 @@ var ALLOW_SYSCALLS = []int{
 	syscall.SYS_CLOCK_GETTIME, syscall.SYS_GETTIMEOFDAY, syscall.SYS_NANOSLEEP,
 	syscall.SYS_TIME,
 
-	syscall.SYS_TGKILL
+	syscall.SYS_TGKILL,
+
+	syscall.SYS_READLINK,
+	syscall.SYS_DUP3,
+}
+
+var ALLOW_ERROR_SYSCALLS = []int{
+	syscall.SYS_CLONE, SYS_CLONE3,
+}
+
+var ALLOW_NETWORK_SYSCALLS = []int{
+	syscall.SYS_SOCKET, syscall.SYS_CONNECT, syscall.SYS_BIND, syscall.SYS_LISTEN, syscall.SYS_ACCEPT, syscall.S
