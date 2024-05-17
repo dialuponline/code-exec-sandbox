@@ -17,4 +17,6 @@ type DifySandboxGlobalConfigurations struct {
 	Proxy           struct {
 		Socks5 string `yaml:"socks5"`
 		Https  string `yaml:"https"`
-		Http   string `yaml:"http
+		Http   string `yaml:"http"`
+	} `yaml:"proxy"`
+}
