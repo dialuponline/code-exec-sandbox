@@ -16,4 +16,21 @@ type Log struct {
 	Level int
 	//File of log
 	File *os.File
-	path 
+	path string
+}
+
+const (
+	LOG_LEVEL_DEBUG = 0
+	LOG_LEVEL_INFO  = 1
+	LOG_LEVEL_WARN  = 2
+	LOG_LEVEL_ERROR = 3
+)
+
+func (l *Log) Debug(format string, stdout bool, v ...interface{}) {
+	if l.Level <= LOG_LEVEL_DEBUG {
+		l.writeLog("DEBUG", format, stdout, v...)
+	}
+}
+
+func (l *Log) Info(format string, stdout bool, v ...interface{}) {
+	if
