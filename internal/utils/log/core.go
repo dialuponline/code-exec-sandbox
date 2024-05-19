@@ -33,4 +33,17 @@ func (l *Log) Debug(format string, stdout bool, v ...interface{}) {
 }
 
 func (l *Log) Info(format string, stdout bool, v ...interface{}) {
-	if
+	if l.Level <= LOG_LEVEL_INFO {
+		l.writeLog("INFO", format, stdout, v...)
+	}
+}
+
+func (l *Log) Warn(format string, stdout bool, v ...interface{}) {
+	if l.Level <= LOG_LEVEL_WARN {
+		l.writeLog("WARN", format, stdout, v...)
+	}
+}
+
+func (l *Log) Error(format string, stdout bool, v ...interface{}) {
+	if l.Level <= LOG_LEVEL_ERROR {
+		l.writ
