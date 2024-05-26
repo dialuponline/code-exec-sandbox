@@ -46,4 +46,14 @@ func (l *Log) Warn(format string, stdout bool, v ...interface{}) {
 
 func (l *Log) Error(format string, stdout bool, v ...interface{}) {
 	if l.Level <= LOG_LEVEL_ERROR {
-		l.writ
+		l.writeLog("ERROR", format, stdout, v...)
+	}
+}
+
+func (l *Log) Panic(format string, stdout bool, v ...interface{}) {
+	l.writeLog("PANIC", format, stdout, v...)
+	panic("")
+}
+
+func (l *Log) writeLog(level string, format string, stdout bool, v ...interface{}) {
+	//if the next day is coming, re
