@@ -56,4 +56,18 @@ func (l *Log) Panic(format string, stdout bool, v ...interface{}) {
 }
 
 func (l *Log) writeLog(level string, format string, stdout bool, v ...interface{}) {
-	//if the next day is coming, re
+	//if the next day is coming, reopen file
+	if time.Now().Format("/2006-01-02.log") != l.File.Name() {
+		l.File.Close()
+		l.OpenFile()
+	}
+	//test if file is closed
+	if l.File == nil {
+		//open file
+		err := l.OpenFile()
+		if err != nil {
+			panic(err)
+		}
+	}
+	//write log
+	format = fmt.Sprintf("["+level+"]"
