@@ -70,4 +70,24 @@ func (l *Log) writeLog(level string, format string, stdout bool, v ...interface{
 		}
 	}
 	//write log
-	format = fmt.Sprintf("["+level+"]"
+	format = fmt.Sprintf("["+level+"]"+format, v...)
+
+	if show_log && stdout {
+		logger.Output(4, format)
+	}
+
+	_, err := l.File.Write([]byte(format + "\n"))
+	if err != nil {
+		//reopen file
+		l.File.Close()
+		l.OpenFile()
+	}
+}
+
+func (l *Log) SetLogLevel(level int) {
+	l.Level = level
+}
+
+func (l *Log) OpenFile() error {
+	//test if file is closed
+	if l.File == n
