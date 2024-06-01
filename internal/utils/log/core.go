@@ -90,4 +90,16 @@ func (l *Log) SetLogLevel(level int) {
 
 func (l *Log) OpenFile() error {
 	//test if file is closed
-	if l.File == n
+	if l.File == nil {
+		//open file
+		file, err := os.OpenFile(l.path+time.Now().Format("/2006-01-02.log"), os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+		if err != nil {
+			return err
+		}
+		l.File = file
+	}
+	//test if file is writable
+	_, err := l.File.Write([]byte(" "))
+	if err != nil {
+		//reopen file
+		l.File
