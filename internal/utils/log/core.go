@@ -102,4 +102,19 @@ func (l *Log) OpenFile() error {
 	_, err := l.File.Write([]byte(" "))
 	if err != nil {
 		//reopen file
-		l.File
+		l.File.Close()
+		file, err := os.OpenFile(l.path+time.Now().Format("/2006-01-02.log"), os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+		if err != nil {
+			return err
+		}
+		l.File = file
+	}
+	return nil
+}
+
+func NewLog(path string) (*Log, error) {
+	if path == "" {
+		path = "log"
+	}
+	//test if path is exist
+	_, err :
