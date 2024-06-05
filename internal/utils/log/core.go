@@ -117,4 +117,18 @@ func NewLog(path string) (*Log, error) {
 		path = "log"
 	}
 	//test if path is exist
-	_, err :
+	_, err := os.Stat(path)
+	if err != nil {
+		//create path
+		err = os.MkdirAll(path, 0777)
+		if err != nil {
+			return nil, err
+		}
+	}
+	// test if path is a directory
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		return nil, err
+	}
+	if !fileInfo.IsDir() {
+		return nil, fmt.Errorf("log file path %s is not
