@@ -131,4 +131,26 @@ func NewLog(path string) (*Log, error) {
 		return nil, err
 	}
 	if !fileInfo.IsDir() {
-		return nil, fmt.Errorf("log file path %s is not
+		return nil, fmt.Errorf("log file path %s is not a directory", path)
+	}
+
+	log := &Log{
+		Level: LOG_LEVEL_DEBUG,
+		path:  path,
+	}
+	//open file
+	err = log.OpenFile()
+	if err != nil {
+		return nil, err
+	}
+	return log, nil
+}
+
+func init() {
+	// why logger will cause panic when call
+	initlog()
+}
+
+func initlog() {
+	var err error
+	main_log, err = NewLog("./logs
