@@ -153,4 +153,20 @@ func init() {
 
 func initlog() {
 	var err error
-	main_log, err = NewLog("./logs
+	main_log, err = NewLog("./logs")
+	if err != nil {
+		panic(err)
+	}
+}
+
+var main_log *Log // wapper of go_log
+var show_log bool = true
+var logger = go_log.New(os.Stdout, "", go_log.Ldate|go_log.Ltime|go_log.Lshortfile)
+
+func SetShowLog(show bool) {
+	show_log = show
+}
+
+func SetLogLevel(level int) {
+	if main_log == nil {
+		
