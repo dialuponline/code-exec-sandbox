@@ -188,4 +188,22 @@ func Info(format string, v ...interface{}) {
 	main_log.Info(format, true, v...)
 }
 
-func Warn(format string, v ...
+func Warn(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Warn(format, true, v...)
+}
+
+func Error(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Error(format, true, v...)
+}
+
+func Panic(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Panic(fo
