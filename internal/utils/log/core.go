@@ -169,4 +169,23 @@ func SetShowLog(show bool) {
 
 func SetLogLevel(level int) {
 	if main_log == nil {
-		
+		initlog()
+	}
+	main_log.SetLogLevel(level)
+}
+
+func Debug(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Debug(format, true, v...)
+}
+
+func Info(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Info(format, true, v...)
+}
+
+func Warn(format string, v ...
