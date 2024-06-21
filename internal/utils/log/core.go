@@ -224,4 +224,21 @@ func SlientInfo(format string, v ...interface{}) {
 }
 
 func SlientWarn(format string, v ...interface{}) {
-	if main
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Warn(format, false, v...)
+}
+
+func SlientError(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Error(format, false, v...)
+}
+
+func SlientPanic(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Panic(format, false, v..
