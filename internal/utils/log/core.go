@@ -206,4 +206,22 @@ func Panic(format string, v ...interface{}) {
 	if main_log == nil {
 		initlog()
 	}
-	main_log.Panic(fo
+	main_log.Panic(format, true, v...)
+}
+
+func SlientDebug(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Debug(format, false, v...)
+}
+
+func SlientInfo(format string, v ...interface{}) {
+	if main_log == nil {
+		initlog()
+	}
+	main_log.Info(format, false, v...)
+}
+
+func SlientWarn(format string, v ...interface{}) {
+	if main
