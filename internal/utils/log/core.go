@@ -241,4 +241,5 @@ func SlientPanic(format string, v ...interface{}) {
 	if main_log == nil {
 		initlog()
 	}
-	main_log.Panic(format, false, v..
+	main_log.Panic(format, false, v...)
+}
