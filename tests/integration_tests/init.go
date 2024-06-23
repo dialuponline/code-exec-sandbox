@@ -11,4 +11,6 @@ func init() {
 
 	err := python.PreparePythonDependenciesEnv()
 	if err != nil {
-		log.Panic("failed to initialize python dependenc
+		log.Panic("failed to initialize python dependencies sandbox: %v", err)
+	}
+}
