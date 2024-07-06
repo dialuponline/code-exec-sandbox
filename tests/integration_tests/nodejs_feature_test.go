@@ -26,4 +26,17 @@ console.log(Buffer.from(base64, "base64").toString());
 		}
 
 		if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stdout, "hello world") {
-			t.Fatalf("unexpected output: %s\n", resp.Data.(*service.RunCodeResponse).
+			t.Fatalf("unexpected output: %s\n", resp.Data.(*service.RunCodeResponse).Stdout)
+		}
+	})
+}
+
+func TestNodejsJSON(t *testing.T) {
+	// Test case for json
+	runMultipleTestings(t, 30, func(t *testing.T) {
+		resp := service.RunNodeJsCode(`
+console.log(JSON.stringify({"hello": "world"}));
+		`, "", &types.RunnerOptions{
+			EnableNetwork: true,
+		})
+		if r
