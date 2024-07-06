@@ -21,4 +21,9 @@ console.log(Buffer.from(base64, "base64").toString());
 			t.Fatal(resp)
 		}
 
-		if resp.Data.
+		if resp.Data.(*service.RunCodeResponse).Stderr != "" {
+			t.Fatalf("unexpected error: %s\n", resp.Data.(*service.RunCodeResponse).Stderr)
+		}
+
+		if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stdout, "hello world") {
+			t.Fatalf("unexpected output: %s\n", resp.Data.(*service.RunCodeResponse).
