@@ -48,4 +48,7 @@ console.log(JSON.stringify({"hello": "world"}));
 		}
 
 		if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stdout, `{"hello":"world"}`) {
-			t.Fatalf("unexpected output
+			t.Fatalf("unexpected output: %s\n", resp.Data.(*service.RunCodeResponse).Stdout)
+		}
+	})
+}
