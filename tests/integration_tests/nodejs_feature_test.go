@@ -39,4 +39,13 @@ console.log(JSON.stringify({"hello": "world"}));
 		`, "", &types.RunnerOptions{
 			EnableNetwork: true,
 		})
-		if r
+		if resp.Code != 0 {
+			t.Error(resp)
+		}
+
+		if resp.Data.(*service.RunCodeResponse).Stderr != "" {
+			t.Fatalf("unexpected error: %s\n", resp.Data.(*service.RunCodeResponse).Stderr)
+		}
+
+		if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stdout, `{"hello":"world"}`) {
+			t.Fatalf("unexpected output
