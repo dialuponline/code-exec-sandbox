@@ -23,4 +23,14 @@ ls.stderr.on( 'data', ( data ) => {
 } );
 
 ls.on( 'close', ( code ) => {
-    console.log(cod
+    console.log(code);
+} );
+	`, "", &types.RunnerOptions{})
+	if resp.Code != 0 {
+		t.Error(resp)
+	}
+
+	if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stderr, "operation not permitted") {
+		t.Error(resp.Data.(*service.RunCodeResponse).Stderr)
+	}
+}
