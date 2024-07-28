@@ -13,4 +13,14 @@ func TestPythonBase64(t *testing.T) {
 	runMultipleTestings(t, 50, func(t *testing.T) {
 		resp := service.RunPython3Code(`
 import base64
-print(base6
+print(base64.b64decode(base64.b64encode(b"hello world")).decode())
+		`, "", &types.RunnerOptions{
+			EnableNetwork: true,
+		})
+		if resp.Code != 0 {
+			t.Fatal(resp)
+		}
+
+		if resp.Data.(*service.RunCodeResponse).Stderr != "" {
+			t.Fatalf("unexpected error: %s\n", resp.Data.(*service.RunCodeResponse).Stderr)
+		}
