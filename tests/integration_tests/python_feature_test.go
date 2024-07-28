@@ -24,3 +24,12 @@ print(base64.b64decode(base64.b64encode(b"hello world")).decode())
 		if resp.Data.(*service.RunCodeResponse).Stderr != "" {
 			t.Fatalf("unexpected error: %s\n", resp.Data.(*service.RunCodeResponse).Stderr)
 		}
+
+		if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stdout, "hello world") {
+			t.Fatalf("unexpected output: %s\n", resp.Data.(*service.RunCodeResponse).Stdout)
+		}
+	})
+}
+
+func TestPythonJSON(t *testing.T) {
+	runMultipleTestings(t, 50, func(t *testing.T) 
