@@ -32,4 +32,17 @@ print(base64.b64decode(base64.b64encode(b"hello world")).decode())
 }
 
 func TestPythonJSON(t *testing.T) {
-	runMultipleTestings(t, 50, func(t *testing.T) 
+	runMultipleTestings(t, 50, func(t *testing.T) {
+		// Test case for json
+		resp := service.RunPython3Code(`
+import json
+print(json.dumps({"hello": "world"}))
+		`, "", &types.RunnerOptions{
+			EnableNetwork: true,
+		})
+		if resp.Code != 0 {
+			t.Fatal(resp)
+		}
+
+		if resp.Data.(*service.RunCodeResponse).Stderr != "" {
+			t.Fatal
