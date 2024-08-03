@@ -45,4 +45,15 @@ print(json.dumps({"hello": "world"}))
 		}
 
 		if resp.Data.(*service.RunCodeResponse).Stderr != "" {
-			t.Fatal
+			t.Fatalf("unexpected error: %s\n", resp.Data.(*service.RunCodeResponse).Stderr)
+		}
+
+		if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stdout, `{"hello": "world"}`) {
+			t.Fatalf("unexpected output: %s\n", resp.Data.(*service.RunCodeResponse).Stdout)
+		}
+	})
+}
+
+func TestPythonHttp(t *testing.T) {
+	// Test case for http
+	runMult
