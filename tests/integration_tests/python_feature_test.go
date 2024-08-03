@@ -56,4 +56,16 @@ print(json.dumps({"hello": "world"}))
 
 func TestPythonHttp(t *testing.T) {
 	// Test case for http
-	runMult
+	runMultipleTestings(t, 1, func(t *testing.T) {
+		resp := service.RunPython3Code(`
+import requests
+print(requests.get("https://www.bilibili.com").content)
+	`, "", &types.RunnerOptions{
+			EnableNetwork: true,
+		})
+		if resp.Code != 0 {
+			t.Fatal(resp)
+		}
+
+		if resp.Data.(*service.RunCodeResponse).Stderr != "" {
+			t.Fatalf("
