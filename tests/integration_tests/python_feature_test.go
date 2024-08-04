@@ -68,4 +68,11 @@ print(requests.get("https://www.bilibili.com").content)
 		}
 
 		if resp.Data.(*service.RunCodeResponse).Stderr != "" {
-			t.Fatalf("
+			t.Fatalf("unexpected error: %s\n", resp.Data.(*service.RunCodeResponse).Stderr)
+		}
+
+		if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stdout, "bilibili") {
+			t.Fatalf("unexpected output: %s\n", resp.Data.(*service.RunCodeResponse).Stdout)
+		}
+	})
+}
