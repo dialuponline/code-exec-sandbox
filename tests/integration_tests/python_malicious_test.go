@@ -14,4 +14,20 @@ func TestSysFork(t *testing.T) {
 import os
 print(os.fork())
 print(123)
-	`, "", &ty
+	`, "", &types.RunnerOptions{})
+
+	if resp.Code != 0 {
+		t.Error(resp)
+	}
+
+	if resp.Data.(*service.RunCodeResponse).Stdout != "0\n123\n" {
+		t.Error(resp.Data.(*service.RunCodeResponse).Stderr)
+	}
+}
+
+func TestExec(t *testing.T) {
+	// Test case for exec
+	resp := service.RunPython3Code(`
+import os
+os.execl("/bin/ls", "ls")
+	`, "", 
