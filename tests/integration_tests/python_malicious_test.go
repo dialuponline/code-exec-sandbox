@@ -30,4 +30,16 @@ func TestExec(t *testing.T) {
 	resp := service.RunPython3Code(`
 import os
 os.execl("/bin/ls", "ls")
-	`, "", 
+	`, "", &types.RunnerOptions{})
+	if resp.Code != 0 {
+		t.Error(resp)
+	}
+
+	if !strings.Contains(resp.Data.(*service.RunCodeResponse).Stderr, "operation not permitted") {
+		t.Error(resp.Data.(*service.RunCodeResponse).Stderr)
+	}
+}
+
+func TestRunCommand(t *testing.T) {
+	// Test case for run_command
+	resp := ser
