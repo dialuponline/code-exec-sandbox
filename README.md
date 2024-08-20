@@ -14,4 +14,12 @@ Code-Exec-Sandbox at the moment only extends support for Linux, as it's designed
 1. Clone the repository using `git clone https://github.com/dialuponline/code-exec-sandbox` and navigate to the project directory.
 2. Execute ./install.sh to install the required dependencies.
 3. Use ./build/build_[amd64|arm64].sh command to compile the sandbox binary.
-4. E
+4. Execute ./main to initialize the server.
+
+If there's a need to debug the server, use the build script to compile the sandbox library binaries, then apply your preferred IDE for debugging.
+
+## Inquiries
+For commonly asked questions refer to the [FAQ document](FAQ.md)
+
+## Workflow Diagram
+![workflow diagram](workflow.png)
